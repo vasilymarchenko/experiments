@@ -6,6 +6,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Customization\UploadValidationDataAttribute.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.17.0" />
 		<PackageReference Include="AutoFixture.Idioms" Version="4.17.0" />
 		<PackageReference Include="AutoFixture.Xunit2" Version="4.17.0" />
