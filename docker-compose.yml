@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  webapi1:
+    image: ${DOCKER_REGISTRY-localhost:5000}/experiments/webapi1
+    build:
+      context: .
+      dockerfile: src/WebApi1/Dockerfile
