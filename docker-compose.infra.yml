@@ -56,4 +56,11 @@ services:
       test: curl --write-out 'HTTP %{http_code}' --fail --silent --output /dev/null http://localhost:8200/
     depends_on:
       - elasticsearch
-  
+
+  webapi1:
+    environment:
+      - ElasticApm__ServerUrl=http://apm-server:8200
+      - ElasticApm__Enabled=true
+      - ElasticApm__CentralConfig=false
+    depends_on:
+      - apm-server
