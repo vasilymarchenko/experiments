@@ -1,0 +1,2 @@
+curl -X GET http://webapi1:5000/api/status/prometheus
+curl -X GET http://host.docker.internal:8095/api/status/prometheus

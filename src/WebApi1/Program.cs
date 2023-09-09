@@ -1,4 +1,5 @@
 using Elastic.Apm.NetCoreAll;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAllElasticApm(builder.Configuration);
+app.UseMetricServer("/api/status/prometheus");
 
 app.UseAuthorization();
 
