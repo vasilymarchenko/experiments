@@ -11,8 +11,7 @@ namespace WebApi1.Controllers
         [HttpPost]
         public async Task<IActionResult> Post()
         {
-            TestWorker.Run(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
-
+            TestWorker.Run(TestWorker.GetRandomOperation());
             return Ok();
         }
     }
