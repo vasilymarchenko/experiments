@@ -1,13 +1,21 @@
 ﻿using System.Diagnostics;
 using AspectInjector.Broker;
 using WebApi1.Diagnostics.Attributes;
+using WebApi1.Services;
 using Target = AspectInjector.Broker.Target;
 
 namespace WebApi1.Diagnostics.Aspects
 {
-    [Aspect(Scope.Global)]
+    [Aspect(Scope.Global, Factory = typeof(AspectsFactory))]
     public class TraceAspectMethodAround
     {
+        private readonly ILogger<TestWorker> _logger;
+
+        public TraceAspectMethodAround(ILogger<TestWorker> logger)
+        {
+            _logger = logger;
+        }
+
         [Advice(Kind.Around, Targets = Target.Method)]
         public object? HandleMethod(
             [Argument(Source.Arguments)] object[] arguments,

@@ -1,5 +1,7 @@
 using Elastic.Apm.NetCoreAll;
 using Prometheus;
+using WebApi1.Diagnostics.Aspects;
+using WebApi1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +12,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddLogging();
+builder.Services.AddScoped<TestWorker>();
+builder.Services.AddSingleton<TraceAspectMethodAround>();
+
 var app = builder.Build();
+
+AspectsFactory.ServiceProvider = app.Services;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

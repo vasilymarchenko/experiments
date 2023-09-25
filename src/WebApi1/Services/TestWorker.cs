@@ -25,13 +25,22 @@ namespace WebApi1.Services
             return _opTypes[randomIndex];
         }
 
+        private readonly ILogger<TestWorker> _logger;
+
+        public TestWorker(ILogger<TestWorker> logger)
+        {
+            _logger = logger;
+        }
+
         [SimpleMetrics(
             "TestWorker_Run_duration", 
             "Duration of TestWorker.Run method in seconds",
             new string[] { "operation" },
             new int[] { 0 })]
-        public static void Run(string operation, string someString, int someNum)
+        public void Run(string operation, string someString, int someNum)
         {
+            _logger.LogInformation("TestWorker.Run started");
+
             var stopwatch = Stopwatch.StartNew();
             try
             {
@@ -58,7 +67,7 @@ namespace WebApi1.Services
             }
         }
 
-        public static void RunTask(string fileType)
+        public void RunTask(string fileType)
         {
             var stopwatch = Stopwatch.StartNew();
             try

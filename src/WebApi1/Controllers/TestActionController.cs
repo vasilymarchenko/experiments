@@ -8,10 +8,17 @@ namespace WebApi1.Controllers
     [ApiController]
     public class TestActionController : ControllerBase
     {
+        private readonly TestWorker _testWorker;
+
+        public TestActionController(TestWorker testWorker)
+        {
+            _testWorker = testWorker;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post()
         {
-            TestWorker.Run(TestWorker.GetRandomOperation(), "dummy", 123);
+            _testWorker.Run(TestWorker.GetRandomOperation(), "dummy", 123);
             return Ok();
         }
     }
