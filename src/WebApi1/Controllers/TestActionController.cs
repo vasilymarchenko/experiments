@@ -11,7 +11,7 @@ namespace WebApi1.Controllers
         [HttpPost]
         public async Task<IActionResult> Post()
         {
-            TestWorker.Run(TestWorker.GetRandomOperation());
+            TestWorker.Run(TestWorker.GetRandomOperation(), "dummy", 123);
             return Ok();
         }
     }

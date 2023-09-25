@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using WebApi1.Diagnostics;
+using WebApi1.Diagnostics.Attributes;
 
 namespace WebApi1.Services
 {
@@ -24,7 +25,12 @@ namespace WebApi1.Services
             return _opTypes[randomIndex];
         }
 
-        public static void Run(string operation)
+        [SimpleMetrics(
+            "TestWorker_Run_duration", 
+            "Duration of TestWorker.Run method in seconds",
+            new string[] { "operation" },
+            new int[] { 0 })]
+        public static void Run(string operation, string someString, int someNum)
         {
             var stopwatch = Stopwatch.StartNew();
             try
@@ -46,9 +52,9 @@ namespace WebApi1.Services
                     .WithLabels(operation)
                     .Inc();
 
-                MetricsFactory.GetHistogram("TestWorker_Run_duration", "operation", "Duration of TestWorker.Run method in seconds")
-                    .WithLabels(new[] { "fileType" }) // Replace "fileType" with the actual file type
-                    .Observe(stopwatch.Elapsed.TotalSeconds);
+                //MetricsFactory.GetHistogram("TestWorker_Run_duration", "operation", "Duration of TestWorker.Run method in seconds")
+                //    .WithLabels(new[] { "fileType" })
+                //    .Observe(stopwatch.Elapsed.TotalSeconds);
             }
         }
 
